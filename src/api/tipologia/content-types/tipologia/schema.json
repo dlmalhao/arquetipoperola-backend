@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tipologias",
+  "info": {
+    "singularName": "tipologia",
+    "pluralName": "tipologias",
+    "displayName": "Tipologia"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nome": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "nome"
+    },
+    "descricao": {
+      "type": "text"
+    },
+    "projetos": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::projeto.projeto",
+      "mappedBy": "tipologias"
+    }
+  }
+}

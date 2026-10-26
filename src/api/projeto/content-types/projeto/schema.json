@@ -1,0 +1,100 @@
+{
+  "kind": "collectionType",
+  "collectionName": "projetos",
+  "info": {
+    "singularName": "projeto",
+    "pluralName": "projetos",
+    "displayName": "Projeto"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nome": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "nome"
+    },
+    "descricao": {
+      "type": "blocks",
+      "required": true
+    },
+    "localizacao": {
+      "type": "string"
+    },
+    "morada": {
+      "type": "string"
+    },
+    "coordenadas": {
+      "type": "string"
+    },
+    "area_bruta": {
+      "type": "decimal"
+    },
+    "area_util": {
+      "type": "decimal"
+    },
+    "n_quartos": {
+      "type": "integer"
+    },
+    "n_casas_banho": {
+      "type": "integer"
+    },
+    "certificacao_energetica": {
+      "type": "string"
+    },
+    "estado": {
+      "type": "enumeration",
+      "enum": [
+        "planeamento",
+        "construcao",
+        "concluido"
+      ]
+    },
+    "ano_conclusao": {
+      "type": "integer"
+    },
+    "disponibilidade": {
+      "type": "enumeration",
+      "enum": [
+        "disponivel",
+        "reservado",
+        "vendido"
+      ]
+    },
+    "imagens": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "plantas": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "video_tour": {
+      "type": "string"
+    },
+    "tipologias": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tipologia.tipologia",
+      "inversedBy": "projetos"
+    },
+    "tipo_de_projetos": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tipo-de-projeto.tipo-de-projeto",
+      "inversedBy": "projetos"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tipos_de_projeto",
+  "info": {
+    "singularName": "tipo-de-projeto",
+    "pluralName": "tipos-de-projeto",
+    "displayName": "Tipo de Projeto"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nome": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "nome"
+    },
+    "descricao": {
+      "type": "text"
+    },
+    "projetos": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::projeto.projeto",
+      "mappedBy": "tipo_de_projetos"
+    }
+  }
+}
