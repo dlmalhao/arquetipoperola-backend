@@ -542,6 +542,54 @@ export interface ApiContactoContacto extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiImovelImovel extends Struct.CollectionTypeSchema {
+  collectionName: 'imoveis';
+  info: {
+    displayName: 'Im\u00F3vel';
+    pluralName: 'imoveis';
+    singularName: 'imovel';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    area_bruta: Schema.Attribute.Decimal;
+    area_util: Schema.Attribute.Decimal;
+    certificacao_energetica: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descricao: Schema.Attribute.Blocks;
+    disponibilidade: Schema.Attribute.Enumeration<
+      ['disponivel', 'reservado', 'vendido']
+    > &
+      Schema.Attribute.DefaultTo<'disponivel'>;
+    imagens: Schema.Attribute.Media<'images', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::imovel.imovel'
+    > &
+      Schema.Attribute.Private;
+    n_casas_banho: Schema.Attribute.Integer;
+    n_quartos: Schema.Attribute.Integer;
+    nome: Schema.Attribute.String & Schema.Attribute.Required;
+    plantas: Schema.Attribute.Media<'images' | 'files', true>;
+    preco: Schema.Attribute.Decimal;
+    projeto: Schema.Attribute.Relation<'manyToOne', 'api::projeto.projeto'>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'nome'>;
+    tipologias: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::tipologia.tipologia'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    video_tour: Schema.Attribute.String;
+  };
+}
+
 export interface ApiParceiroParceiro extends Struct.CollectionTypeSchema {
   collectionName: 'parceiros';
   info: {
@@ -583,21 +631,16 @@ export interface ApiProjetoProjeto extends Struct.CollectionTypeSchema {
   };
   attributes: {
     ano_conclusao: Schema.Attribute.Integer;
-    area_bruta: Schema.Attribute.Decimal;
-    area_util: Schema.Attribute.Decimal;
-    certificacao_energetica: Schema.Attribute.String;
     coordenadas: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     descricao: Schema.Attribute.Blocks & Schema.Attribute.Required;
-    disponibilidade: Schema.Attribute.Enumeration<
-      ['disponivel', 'reservado', 'vendido']
-    >;
     estado: Schema.Attribute.Enumeration<
       ['planeamento', 'construcao', 'concluido']
     >;
     imagens: Schema.Attribute.Media<'images', true>;
+    imoveis: Schema.Attribute.Relation<'oneToMany', 'api::imovel.imovel'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizacao: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
@@ -606,8 +649,6 @@ export interface ApiProjetoProjeto extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     morada: Schema.Attribute.String;
-    n_casas_banho: Schema.Attribute.Integer;
-    n_quartos: Schema.Attribute.Integer;
     nome: Schema.Attribute.String & Schema.Attribute.Required;
     plantas: Schema.Attribute.Media<'images' | 'files', true>;
     publishedAt: Schema.Attribute.DateTime;
@@ -615,10 +656,6 @@ export interface ApiProjetoProjeto extends Struct.CollectionTypeSchema {
     tipo_de_projetos: Schema.Attribute.Relation<
       'manyToMany',
       'api::tipo-de-projeto.tipo-de-projeto'
-    >;
-    tipologias: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::tipologia.tipologia'
     >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -674,6 +711,7 @@ export interface ApiTipologiaTipologia extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     descricao: Schema.Attribute.Text;
+    imoveis: Schema.Attribute.Relation<'manyToMany', 'api::imovel.imovel'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -681,7 +719,6 @@ export interface ApiTipologiaTipologia extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     nome: Schema.Attribute.String & Schema.Attribute.Required;
-    projetos: Schema.Attribute.Relation<'manyToMany', 'api::projeto.projeto'>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'nome'>;
     updatedAt: Schema.Attribute.DateTime;
@@ -1204,6 +1241,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::about.about': ApiAboutAbout;
       'api::contacto.contacto': ApiContactoContacto;
+      'api::imovel.imovel': ApiImovelImovel;
       'api::parceiro.parceiro': ApiParceiroParceiro;
       'api::projeto.projeto': ApiProjetoProjeto;
       'api::tipo-de-projeto.tipo-de-projeto': ApiTipoDeProjetoTipoDeProjeto;

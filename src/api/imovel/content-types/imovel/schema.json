@@ -1,0 +1,83 @@
+{
+  "kind": "collectionType",
+  "collectionName": "imoveis",
+  "info": {
+    "singularName": "imovel",
+    "pluralName": "imoveis",
+    "displayName": "Imóvel"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nome": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "nome"
+    },
+    "descricao": {
+      "type": "blocks"
+    },
+    "preco": {
+      "type": "decimal"
+    },
+    "area_bruta": {
+      "type": "decimal"
+    },
+    "area_util": {
+      "type": "decimal"
+    },
+    "n_quartos": {
+      "type": "integer"
+    },
+    "n_casas_banho": {
+      "type": "integer"
+    },
+    "certificacao_energetica": {
+      "type": "string"
+    },
+    "disponibilidade": {
+      "type": "enumeration",
+      "enum": [
+        "disponivel",
+        "reservado",
+        "vendido"
+      ],
+      "default": "disponivel"
+    },
+    "imagens": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "plantas": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "video_tour": {
+      "type": "string"
+    },
+    "projeto": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::projeto.projeto",
+      "inversedBy": "imoveis"
+    },
+    "tipologias": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tipologia.tipologia",
+      "inversedBy": "imoveis"
+    }
+  }
+}

@@ -32,21 +32,6 @@
     "coordenadas": {
       "type": "string"
     },
-    "area_bruta": {
-      "type": "decimal"
-    },
-    "area_util": {
-      "type": "decimal"
-    },
-    "n_quartos": {
-      "type": "integer"
-    },
-    "n_casas_banho": {
-      "type": "integer"
-    },
-    "certificacao_energetica": {
-      "type": "string"
-    },
     "estado": {
       "type": "enumeration",
       "enum": [
@@ -57,14 +42,6 @@
     },
     "ano_conclusao": {
       "type": "integer"
-    },
-    "disponibilidade": {
-      "type": "enumeration",
-      "enum": [
-        "disponivel",
-        "reservado",
-        "vendido"
-      ]
     },
     "imagens": {
       "type": "media",
@@ -84,17 +61,17 @@
     "video_tour": {
       "type": "string"
     },
-    "tipologias": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::tipologia.tipologia",
-      "inversedBy": "projetos"
-    },
     "tipo_de_projetos": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::tipo-de-projeto.tipo-de-projeto",
       "inversedBy": "projetos"
+    },
+    "imoveis": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::imovel.imovel",
+      "mappedBy": "projeto"
     }
   }
 }

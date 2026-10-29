@@ -22,10 +22,10 @@
     "descricao": {
       "type": "text"
     },
-    "projetos": {
+    "imoveis": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::projeto.projeto",
+      "target": "api::imovel.imovel",
       "mappedBy": "tipologias"
     }
   }
